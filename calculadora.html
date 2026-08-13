@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Calculadora de Preço 3D | Oficina 3D</title>
+<meta name="description" content="Descubra quanto cobrar por cada impressão 3D."/>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-brand-orange:#ff6b00;
+    --color-brand-orange-hover:#e56000;
+    --color-dark-deep:#050505;
+    --color-dark-panel:#131313;
+    --color-dark-field:#0a0a0a;
+    --color-dark-border:#2e2e2e;
+    --color-text-primary:#fff;
+    --color-text-secondary:#a1a1aa;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;min-height:100%;}
+  body{
+    background:var(--color-dark-deep);color:var(--color-text-primary);
+    font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  header.top{
+    width:100%;padding:1.1rem 1.5rem;display:flex;align-items:center;gap:1rem;
+    border-bottom:1px solid var(--color-dark-border);
+  }
+  .back-link{font-size:.8rem;font-weight:600;color:var(--color-text-secondary);display:inline-flex;align-items:center;gap:.4rem;}
+  .back-link:hover{color:#fff;}
+  .back-link svg{width:1rem;height:1rem;}
+  header.top .brand-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:.95rem;color:#fff;text-transform:uppercase;margin-left:auto;}
+  header.top .brand-name span{color:var(--color-brand-orange);}
+
+  main{flex:1;width:100%;display:flex;align-items:center;justify-content:center;padding:2.5rem 1.25rem;}
+
+  .calc-card{
+    width:100%;max-width:26rem;background:var(--color-dark-panel);border:1px solid var(--color-dark-border);
+    border-radius:1.25rem;padding:2rem;box-shadow:0 25px 60px rgba(0,0,0,.45);
+  }
+  .calc-icon{
+    width:3rem;height:3rem;border-radius:.85rem;background:rgba(255,107,0,.12);color:var(--color-brand-orange);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;
+  }
+  .calc-icon svg{width:1.6rem;height:1.6rem;}
+  .calc-card h1{
+    font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.3rem;text-align:center;margin:0 0 .35rem;
+  }
+  .calc-card .sub{text-align:center;color:var(--color-text-secondary);font-size:.82rem;margin:0 0 1.75rem;}
+
+  .field{margin-bottom:1rem;}
+  .field label{
+    display:flex;justify-content:space-between;font-size:.72rem;font-weight:700;color:var(--color-text-secondary);
+    margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.03em;
+  }
+  .field-wrap{position:relative;}
+  .field-wrap input{
+    width:100%;background:var(--color-dark-field);border:1px solid var(--color-dark-border);border-radius:.6rem;
+    padding:.75rem 3.2rem .75rem .9rem;color:#fff;font-size:1rem;font-weight:600;font-family:inherit;
+    -moz-appearance:textfield;
+  }
+  .field-wrap input::-webkit-outer-spin-button,.field-wrap input::-webkit-inner-spin-button{margin:0;}
+  .field-wrap input:focus{outline:none;border-color:var(--color-brand-orange);}
+  .field-wrap .unit{
+    position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--color-text-secondary);
+    font-size:.78rem;font-weight:700;pointer-events:none;
+  }
+  .field-hint{
+    font-size:.7rem;line-height:1.55;color:var(--color-text-secondary);margin:.45rem .1rem 0;
+  }
+  .field-hint strong{color:var(--color-brand-orange);font-weight:700;}
+
+  .calc-btn{
+    width:100%;background:var(--color-brand-orange);color:#000;font-weight:800;padding:.9rem;border-radius:.65rem;
+    border:none;font-size:.95rem;cursor:pointer;transition:background .15s;margin-top:.4rem;
+    text-transform:uppercase;letter-spacing:.03em;
+  }
+  .calc-btn:hover{background:var(--color-brand-orange-hover);}
+
+  .result{
+    margin-top:1.5rem;background:linear-gradient(160deg,rgba(255,107,0,.16),rgba(255,107,0,.04));
+    border:1px solid rgba(255,107,0,.4);border-radius:.9rem;padding:1.25rem;text-align:center;
+  }
+  .result .label{font-size:.72rem;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;}
+  .result .value{font-family:'Montserrat',sans-serif;font-weight:900;font-size:2.1rem;color:var(--color-brand-orange);line-height:1.1;}
+  .result .breakdown{margin-top:.6rem;font-size:.72rem;color:var(--color-text-secondary);}
+
+  footer{padding:1.5rem;text-align:center;color:var(--color-text-secondary);font-size:.7rem;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back-link" href="./acervo-4.html#materiais">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+    Voltar ao Acervo 4
+  </a>
+  <div class="brand-name">OFICINA <span>3D</span></div>
+</header>
+
+<main>
+  <div class="calc-card">
+    <div class="calc-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="16" x2="16" y1="14" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+    </div>
+    <h1>Calculadora de Preço</h1>
+    <p class="sub">Preencha os dados da sua peça e veja quanto cobrar.</p>
+
+    <div class="field">
+      <label>Peso da peça</label>
+      <div class="field-wrap">
+        <input type="number" id="peso" value="32" min="0" step="1">
+        <span class="unit">gramas</span>
+      </div>
+      <p class="field-hint">Pese a peça já pronta na balança. Quanto mais pesada, mais filamento ela consumiu.</p>
+    </div>
+
+    <div class="field">
+      <label>Preço do filamento (por kg)</label>
+      <div class="field-wrap">
+        <input type="number" id="filamento" value="90" min="0" step="1">
+        <span class="unit">R$/kg</span>
+      </div>
+      <p class="field-hint">É o valor que você paga no rolo de 1kg. PLA e PETG comuns custam entre R$ 70 e R$ 120.</p>
+    </div>
+
+    <div class="field">
+      <label>Tempo de impressão</label>
+      <div class="field-wrap">
+        <input type="number" id="tempo" value="2" min="0" step="0.1">
+        <span class="unit">horas</span>
+      </div>
+      <p class="field-hint">Veja o tempo estimado no seu fatiador (slicer) antes de imprimir — é ele que desgasta a máquina.</p>
+    </div>
+
+    <div class="field">
+      <label>Custo da hora de impressão</label>
+      <div class="field-wrap">
+        <input type="number" id="custoHora" value="6" min="0" step="0.5">
+        <span class="unit">R$/h</span>
+      </div>
+      <p class="field-hint"><strong>Recomendado:</strong> R$ 4–6/h se você está começando agora; R$ 8–12/h se já tem clientes fixos e mais experiência. Esse valor cobre energia elétrica e desgaste da impressora.</p>
+    </div>
+
+    <div class="field">
+      <label>Margem de lucro</label>
+      <div class="field-wrap">
+        <input type="number" id="margem" value="50" min="0" step="5">
+        <span class="unit">%</span>
+      </div>
+      <p class="field-hint"><strong>Recomendado: 50%.</strong> Garante que sobre lucro de verdade depois de imprevistos (falhas, tempo de acabamento). Quem está começando pode usar 30–40%; negócios mais maduros chegam a 70–100%.</p>
+    </div>
+
+    <button class="calc-btn" id="btnCalcular">Calcular Preço</button>
+
+    <div class="result">
+      <div class="label">Você deve cobrar</div>
+      <div class="value" id="resultado">R$ 0,00</div>
+      <div class="breakdown" id="breakdown">Material: R$ 0,00 · Tempo: R$ 0,00</div>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 OFICINA 3D™ · Todos os direitos reservados.</footer>
+
+<script>
+  const ids = ['peso','filamento','tempo','custoHora','margem'];
+  const inputs = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+  const resultado = document.getElementById('resultado');
+  const breakdown = document.getElementById('breakdown');
+
+  function brl(n){
+    return n.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+  }
+
+  function calcular(){
+    const peso = parseFloat(inputs.peso.value) || 0;
+    const filamento = parseFloat(inputs.filamento.value) || 0;
+    const tempo = parseFloat(inputs.tempo.value) || 0;
+    const custoHora = parseFloat(inputs.custoHora.value) || 0;
+    const margem = parseFloat(inputs.margem.value) || 0;
+
+    const custoMaterial = (peso / 1000) * filamento;
+    const custoTempo = tempo * custoHora;
+    const subtotal = custoMaterial + custoTempo;
+    const precoFinal = subtotal * (1 + margem / 100);
+
+    resultado.textContent = brl(precoFinal);
+    breakdown.textContent = `Material: ${brl(custoMaterial)} · Tempo: ${brl(custoTempo)}`;
+  }
+
+  ids.forEach(id => inputs[id].addEventListener('input', calcular));
+  document.getElementById('btnCalcular').addEventListener('click', calcular);
+  calcular();
+</script>
+
+</body>
+</html>

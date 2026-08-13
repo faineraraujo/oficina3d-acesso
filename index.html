@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Acesso oficial | Oficina 3D</title>
+<meta name="description" content="Página oficial de acesso aos acervos da Oficina 3D com orientação anti-golpe e canais oficiais."/>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-brand-orange:#ff6b00;
+    --color-brand-orange-hover:#e56000;
+    --color-dark-deep:#050505;
+    --color-dark-charcoal:#121212;
+    --color-dark-border:#2e2e2e;
+    --color-text-primary:#fff;
+    --color-text-secondary:#a1a1aa;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;min-height:100%;}
+  body{
+    background:var(--color-dark-deep);
+    color:var(--color-text-primary);
+    font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  .font-display{font-family:'Montserrat',ui-sans-serif,system-ui,sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  header.top{
+    width:100%;height:5rem;display:flex;align-items:center;justify-content:center;
+    border-bottom:1px solid var(--color-dark-border);background:var(--color-dark-charcoal);padding:0 1rem;
+  }
+  header.top .brand{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  header.top .brand-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.25rem;letter-spacing:-0.02em;color:#fff;text-transform:uppercase;}
+  header.top .brand-sub{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--color-brand-orange);margin-top:2px;}
+
+  main{flex:1;width:100%;max-width:64rem;margin:0 auto;display:flex;flex-direction:column;padding:2rem 1rem;gap:2rem;}
+  @media(min-width:768px){main{padding:3rem 1rem;}}
+
+  .panel{
+    width:100%;border-radius:1.5rem;border:1px solid var(--color-dark-border);background:rgba(18,18,18,.7);
+    box-shadow:0 0 30px rgba(0,0,0,.25);padding:1.5rem 1.25rem;
+  }
+  @media(min-width:768px){.panel{padding:2rem;}}
+  .panel-head{text-align:center;margin-bottom:1.5rem;}
+  .panel-eyebrow{font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--color-brand-orange);}
+  .panel-title{font-size:1.25rem;font-weight:900;text-transform:uppercase;color:#fff;margin:.4rem 0;font-family:'Montserrat',sans-serif;}
+  @media(min-width:768px){.panel-title{font-size:1.75rem;}}
+  .panel-sub{font-size:.875rem;color:var(--color-text-secondary);max-width:42rem;margin:0 auto;}
+
+  .card{
+    background:var(--color-dark-charcoal);border:1px solid var(--color-dark-border);border-radius:1rem;
+    padding:1.5rem;box-shadow:0 20px 40px rgba(0,0,0,.3);position:relative;overflow:hidden;max-width:48rem;margin:0 auto;
+  }
+  @media(min-width:768px){.card{padding:2rem;}}
+  .card::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:75%;height:1px;
+    background:linear-gradient(to right,transparent,rgba(255,107,0,.5),transparent);
+  }
+  .card-head{text-align:center;margin-bottom:2rem;}
+  .card-head h2{font-size:1.25rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#fff;margin-bottom:.5rem;font-family:'Montserrat',sans-serif;}
+  @media(min-width:768px){.card-head h2{font-size:1.5rem;}}
+  .card-head p{color:var(--color-text-secondary);font-size:.875rem;}
+
+  .acervos-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:2rem;}
+  @media(min-width:768px){.acervos-grid{grid-template-columns:1fr 1fr;gap:1.5rem;}}
+  .acervo-item{display:flex;flex-direction:column;gap:.5rem;}
+  .acervo-btn{
+    border-radius:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
+    background:var(--color-brand-orange);color:#fff;height:5rem;display:flex;align-items:center;justify-content:center;
+    gap:.75rem;font-size:.875rem;box-shadow:0 0 20px rgba(255,107,0,.15);transition:all .2s;
+  }
+  @media(min-width:768px){.acervo-btn{height:5rem;font-size:1rem;}}
+  .acervo-btn:hover{background:var(--color-brand-orange-hover);box-shadow:0 0 30px rgba(255,107,0,.3);}
+  .acervo-btn svg{width:1.25rem;height:1.25rem;flex-shrink:0;}
+  .acervo-pass{font-size:1.1rem;text-align:center;color:var(--color-brand-orange);font-weight:900;}
+
+  .panel-note{
+    background:var(--color-dark-deep);border-radius:.75rem;padding:1rem;border:1px solid var(--color-dark-border);
+  }
+  .panel-note h3{color:#fff;font-weight:700;font-size:.875rem;margin:0 0 .25rem;text-transform:uppercase;letter-spacing:.03em;}
+  .panel-note p{color:var(--color-text-secondary);font-size:.75rem;margin:.25rem 0;}
+  .panel-note p.faint{color:rgba(161,161,170,.7);font-size:.6875rem;}
+
+  footer{background:var(--color-dark-deep);padding:2rem 0;color:var(--color-text-secondary);border-top:1px solid var(--color-dark-border);margin-top:auto;}
+  .footer-inner{max-width:64rem;margin:0 auto;padding:0 1rem;}
+  .footer-brand{display:flex;flex-direction:column;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+  .footer-brand h2{color:#fff;font-weight:900;font-size:1.125rem;font-family:'Montserrat',sans-serif;}
+  .footer-links{display:flex;gap:1rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+  .footer-links a:hover{color:#fff;}
+  .footer-legal{font-size:.625rem;line-height:1.6;color:var(--color-dark-border);text-align:center;max-width:48rem;margin:0 auto;}
+  .footer-legal p{margin:.5rem 0;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="brand-name">OFICINA 3D™</span>
+    <span class="brand-sub">Método Imprime &amp; Vende</span>
+  </div>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="panel-head">
+      <p class="panel-eyebrow">Acesso oficial aos acervos</p>
+      <h2 class="panel-title">Acesse seus materiais com segurança</h2>
+      <p class="panel-sub">Use somente os botões oficiais abaixo para abrir os acervos. Salve esta página e desconfie de links enviados por terceiros.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Acesse Seus Acervos</h2>
+        <p>O conteúdo foi dividido em quatro acessos para facilitar a navegação e o carregamento.</p>
+      </div>
+
+      <div class="acervos-grid">
+        <div class="acervo-item">
+          <a class="acervo-btn" href="https://mestre3d.vercel.app/membros" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
+            ACESSAR ACERVO 1
+          </a>
+        </div>
+
+        <div class="acervo-item">
+          <a class="acervo-btn" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
+            ACESSAR ACERVO 2
+          </a>
+        </div>
+
+        <div class="acervo-item">
+          <a class="acervo-btn" href="./acervo-4.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
+            CALCULADORA
+          </a>
+        </div>
+
+        <div class="acervo-item">
+          <a class="acervo-btn" href="https://central-3d-lucrativa-715659861474.us-west2.run.app/members" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
+            ACESSAR ACERVO 3
+          </a>
+          <span class="acervo-pass">Senha: mestre3d</span>
+        </div>
+      </div>
+
+      <div class="panel-note">
+        <h3>Importante</h3>
+        <p>Cada botão abre uma parte diferente do acervo. Recomendamos salvar os quatro acessos em uma pasta de favoritos no navegador.</p>
+        <p class="faint">Caso algum acesso não abra, verifique se o navegador bloqueou a abertura de uma nova aba.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>OFICINA 3D™</h2>
+      <div class="footer-links">
+        <a href="#termos">Termos</a>
+        <a href="#privacidade">Privacidade</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>Resultados variam conforme execução. Oficina 3D não possui vínculo com Shopee, Mercado Livre ou Meta.</p>
+      <p>© 2026 OFICINA 3D™ · Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MultiPartes | Oficina 3D</title>
+<meta name="description" content="Modelos multi-partes prontos para impressão, com acesso direto ao Google Drive de cada um."/>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-brand-orange:#ff6b00;
+    --color-brand-orange-hover:#e56000;
+    --color-dark-deep:#050505;
+    --color-dark-charcoal:#121212;
+    --color-dark-panel:#0d0d0d;
+    --color-dark-border:#2e2e2e;
+    --color-text-primary:#fff;
+    --color-text-secondary:#a1a1aa;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;min-height:100%;}
+  body{
+    background:var(--color-dark-deep);color:var(--color-text-primary);
+    font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none;}
+  header.top{
+    width:100%;padding:1.1rem 1.5rem;display:flex;align-items:center;gap:1rem;
+    border-bottom:1px solid var(--color-dark-border);
+  }
+  .back-link{font-size:.8rem;font-weight:600;color:var(--color-text-secondary);display:inline-flex;align-items:center;gap:.4rem;}
+  .back-link:hover{color:#fff;}
+  .back-link svg{width:1rem;height:1rem;}
+  header.top .brand-name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:.95rem;color:#fff;text-transform:uppercase;margin-left:auto;}
+  header.top .brand-name span{color:var(--color-brand-orange);}
+
+  main{flex:1;width:100%;max-width:72rem;margin:2rem auto;padding:0 1.5rem 3rem;}
+  .page-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.5rem;margin:0 0 .3rem;}
+  .page-sub{color:var(--color-text-secondary);font-size:.85rem;margin:0 0 2rem;}
+
+  .items-grid{display:grid;grid-template-columns:1fr;gap:.85rem;}
+  @media(min-width:640px){.items-grid{grid-template-columns:1fr 1fr;}}
+  @media(min-width:1024px){.items-grid{grid-template-columns:1fr 1fr 1fr;}}
+
+  .item-card{
+    background:var(--color-dark-panel);border:1px solid var(--color-dark-border);border-radius:.85rem;
+    padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+    transition:border-color .15s;
+  }
+  .item-card:hover{border-color:rgba(255,107,0,.45);}
+  .item-name{font-size:.85rem;font-weight:700;color:#fff;}
+  .item-go{
+    font-size:.7rem;font-weight:800;color:var(--color-brand-orange);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:.3rem;
+  }
+
+  footer{padding:1.5rem;text-align:center;color:var(--color-text-secondary);font-size:.7rem;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back-link" href="./acervo-4.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+    Voltar ao Acervo 4
+  </a>
+  <div class="brand-name">OFICINA <span>3D</span></div>
+</header>
+
+<main>
+  <h1 class="page-title">MultiPartes</h1>
+  <p class="page-sub">21 conteúdos disponívelis. Cada botão abre o Google Drive original do arquivo.</p>
+  <div class="items-grid">
+      <a class="item-card" href="https://drive.google.com/drive/folders/1y9HnE8iMAX02B3YVV0dc_brudI4hAhuc?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Batman</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1DQpP9-sMgX7if-1isNjiiCZ84EOYywOJ?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Ciclope</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1FwPgP1Oe6c6_gJF8oEvYz-tbUW_heiDx?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Coyote Batman</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1BTxnp1Lw8jPNC_WPbpvaPLrgU_qVpLWl?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Patolino Batman</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1t5S8LZkMS60kUOa-xEWv9cGweI_zHi7D?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Homem Aranha</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1OeE5MifYmFOqxfhhoW7R9C8nT-N7HhgU?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Hulk</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/152vUzTvU3DYm9_kcviK8NK7mHsxpCltk?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Lanterna Verde</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1Vhrmd2Wh6RBCNu8kheNgRmbs5QLPt3pN?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Luigi</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1HhUT33j_7pdO1XUOnYGsiFBiWsvCnZqi?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Mario</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1o8mlBaPG3xt7EjScGF75Z_D9zBPRziNh?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">O Grinch de Natal</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1enV82epc-d4ldEeD4XTJARAs6aTgHNJ0?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Papa Léguas</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1DDWqrB3WKIwUTx3rY2luVHA0XnMFoeCy?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Patolino Super-Men</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/12ZXCtbhsF6GezXpn1B9EtkUp7earjd9X?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Pernalonga Batman</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/14-ROAGYLfbUxqahP-ahRhBLblGAZ_fgM?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Pikachu Batman</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1m6tGPb4I00dauOnaiSp6pkaR9vatOEJT?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Pinky e o Cérebro</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1K37RGiNgl4NXX2DBNXcxmwQ0jZnzHm0j?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Sonic</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/15vp1Mg5GkUCG6lJtazLO4fJTbOX1MZIe?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Sr. Incrível & Jack-Jack</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/11Xt0ZgibEKQObEqAXleCK9iLeDrF0PTE?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Sullivan</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1lTxeGb9Ft3gpHwtgYXk8M7wnl6KqTRRo?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Tails</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1R4G9wCjwTGY4IYpEi1lfLKeMwrmCVAzI?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Taz Rock</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+      <a class="item-card" href="https://drive.google.com/drive/folders/1TDdzz9Hdeuo6AI7UQ72pQE9FZYLOS3GP?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        <span class="item-name">Wario</span>
+        <span class="item-go">Acessar no Drive →</span>
+      </a>
+  </div>
+</main>
+<footer>© 2026 OFICINA 3D™ · Todos os direitos reservados.</footer>
+
+</body>
+</html>
