@@ -351,13 +351,13 @@
 </div>
 
 <script>
-  // Identificação do lead: lê "?lead=" da URL, guarda pra durar a sessão inteira
+  // Identificação do lead: lê "?id=" da URL, guarda pra durar a sessão inteira
   // e repassa pros links internos do site (acervo-4.html, calculadora.html etc).
   var OFICINA3D_LEAD_ID = (function(){
     var STORAGE_KEY = 'oficina3d_lead_id';
     var id = null;
     try{
-      id = new URLSearchParams(location.search).get('lead');
+      id = new URLSearchParams(location.search).get('id');
       if(id){ sessionStorage.setItem(STORAGE_KEY, id); }
       else{ id = sessionStorage.getItem(STORAGE_KEY); }
     }catch(e){}
@@ -367,7 +367,7 @@
         var href = a.getAttribute('href');
         if(!href || href.charAt(0) === '#' || /^https?:\/\//i.test(href)) return;
         var sep = href.indexOf('?') === -1 ? '?' : '&';
-        a.setAttribute('href', href + sep + 'lead=' + encodeURIComponent(id));
+        a.setAttribute('href', href + sep + 'id=' + encodeURIComponent(id));
       });
     }
     return id;
