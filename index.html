@@ -134,6 +134,14 @@
     font-size:.8rem;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8);
   }
   .video-yt-link:hover{color:var(--color-brand-orange);}
+  .video-nota{
+    display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;
+    text-align:center;font-size:.8rem;line-height:1.5;color:var(--color-text-secondary);
+    max-width:34rem;margin:1rem auto 0;
+  }
+  .video-nota svg{width:1.05rem;height:1.05rem;flex-shrink:0;color:var(--color-brand-orange);}
+  .video-nota strong{color:var(--color-brand-orange);font-weight:800;}
+
   .fluxo-conector{display:flex;justify-content:center;}
   .fluxo-linha{
     display:block;width:2px;height:2.5rem;border-radius:2px;
@@ -222,7 +230,7 @@
 <main>
   <section class="panel">
     <h2 class="tutorial-title"><span>🎬</span> Tutorial de início</h2>
-    <p class="tutorial-lead">Comece por aqui: em poucos minutos você aprende a <strong>baixar os arquivos e mandar imprimir</strong>. Terminou o vídeo, é só abrir o acervo abaixo e escolher a primeira peça pra vender.</p>
+    <p class="tutorial-lead">Em poucos minutos você aprende a <strong>baixar os arquivos e mandar imprimir</strong> — assista caso você precise. Seu acervo já está liberado logo abaixo.</p>
     <div class="video-frame">
       <div class="video-ratio" id="videoRatio" data-video="XBZKNKsJqKE">
         <button class="video-facade" id="videoFacade" type="button" aria-label="Reproduzir o tutorial de início">
@@ -234,6 +242,11 @@
         <a class="video-yt-link" href="https://www.youtube.com/watch?v=XBZKNKsJqKE" target="_blank" rel="noopener noreferrer">Assista no YouTube</a>
       </div>
     </div>
+    <p class="video-nota">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"></path><rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect></svg>
+      Esse é só o começo: tem <strong>muito mais aulas e tutoriais</strong> dentro dos acervos.
+    </p>
+
     <div class="fluxo-conector" aria-hidden="true">
       <span class="fluxo-linha"></span>
     </div>
@@ -242,7 +255,7 @@
       <div class="acervos-grid">
         <div class="acervo-item destaque">
           <span class="comece-aqui" aria-hidden="true">
-            <span class="comece-txt">Assistiu? Comece por aqui</span>
+            <span class="comece-txt">Comece por aqui</span>
             <svg class="comece-seta" viewBox="0 0 28 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v27"></path><path d="M5 23l9 10 9-10"></path></svg>
           </span>
           <a class="acervo-btn" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
@@ -387,7 +400,7 @@
   })();
 
   (function(){
-    var DELAY_MS = 100000;          // 100 segundos na página
+    var DELAY_MS = 420000;          // 7 minutos na página
     var STORAGE_KEY = 'recadoVicenteVisto';
 
     var overlay = document.getElementById('recadoOverlay');
