@@ -410,8 +410,8 @@
     var keyEl = document.getElementById('recadoPixKey');
     if(!overlay) return;
 
-    // TODO: cole aqui a URL real do seu webhook.
-    var WEBHOOK_URL = 'COLE_AQUI_A_URL_DO_WEBHOOK';
+    var WEBHOOK_URL = 'https://app.nicochat.com/api/iwh/7a5e340d8a9d03411b10a6f6346ff190';
+    var WEBHOOK_ENABLED = true;
 
     if(btnConfirmar){
       btnConfirmar.addEventListener('click', function(){
@@ -431,8 +431,8 @@
           btnConfirmar.classList.add('sent');
         }
 
-        if(WEBHOOK_URL.indexOf('COLE_AQUI') === 0){
-          // Webhook ainda não configurado — evita erro de rede no console.
+        if(!WEBHOOK_ENABLED){
+          console.log('[TESTE] webhook offline — payload que seria enviado:', payload);
           marcarEnviado();
           return;
         }
