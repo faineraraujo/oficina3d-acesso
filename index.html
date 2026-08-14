@@ -45,12 +45,6 @@
     box-shadow:0 0 30px rgba(0,0,0,.25);padding:1.5rem 1.25rem;
   }
   @media(min-width:768px){.panel{padding:2rem;}}
-  .panel-head{text-align:center;margin-bottom:1.5rem;}
-  .panel-eyebrow{font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--color-brand-orange);}
-  .panel-title{font-size:1.25rem;font-weight:900;text-transform:uppercase;color:#fff;margin:.4rem 0;font-family:'Montserrat',sans-serif;}
-  @media(min-width:768px){.panel-title{font-size:1.75rem;}}
-  .panel-sub{font-size:.875rem;color:var(--color-text-secondary);max-width:42rem;margin:0 auto;}
-
   .card{
     background:var(--color-dark-charcoal);border:1px solid var(--color-dark-border);border-radius:1rem;
     padding:1.5rem;box-shadow:0 20px 40px rgba(0,0,0,.3);position:relative;overflow:hidden;max-width:48rem;margin:0 auto;
@@ -60,14 +54,31 @@
     content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:75%;height:1px;
     background:linear-gradient(to right,transparent,rgba(255,107,0,.5),transparent);
   }
-  .card-head{text-align:center;margin-bottom:2rem;}
-  .card-head h2{font-size:1.25rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#fff;margin-bottom:.5rem;font-family:'Montserrat',sans-serif;}
-  @media(min-width:768px){.card-head h2{font-size:1.5rem;}}
-  .card-head p{color:var(--color-text-secondary);font-size:.875rem;}
-
-  .acervos-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:2rem;}
+  .acervos-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin:4.5rem 0 2rem;}
   @media(min-width:768px){.acervos-grid{grid-template-columns:1fr 1fr;gap:1.5rem;}}
   .acervo-item{display:flex;flex-direction:column;gap:.5rem;}
+
+  /* Seta laranja ligando o tutorial ao Acervo 1 */
+  .acervo-item.destaque{position:relative;}
+  .comece-aqui{
+    position:absolute;bottom:100%;left:0;width:100%;margin-bottom:.25rem;
+    display:flex;flex-direction:column;align-items:center;gap:.1rem;
+    color:var(--color-brand-orange);pointer-events:none;
+  }
+  .comece-txt{
+    font-size:.85rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;
+    text-shadow:0 0 14px rgba(255,107,0,.45);
+  }
+  .comece-seta{
+    width:2.1rem;height:2.9rem;display:block;
+    filter:drop-shadow(0 0 10px rgba(255,107,0,.55));
+    animation:setaPula 1.3s ease-in-out infinite;
+  }
+  @keyframes setaPula{0%,100%{transform:translateY(-5px);}50%{transform:translateY(6px);}}
+  .acervo-item.destaque .acervo-btn{
+    box-shadow:0 0 0 2px rgba(255,107,0,.6),0 0 30px rgba(255,107,0,.4);
+  }
+  @media(prefers-reduced-motion:reduce){.comece-seta{animation:none;}}
   .acervo-btn{
     border-radius:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
     background:var(--color-brand-orange);color:#fff;height:5rem;display:flex;align-items:center;justify-content:center;
@@ -77,6 +88,7 @@
   .acervo-btn:hover{background:var(--color-brand-orange-hover);box-shadow:0 0 30px rgba(255,107,0,.3);}
   .acervo-btn svg{width:1.25rem;height:1.25rem;flex-shrink:0;}
   .acervo-pass{font-size:1.1rem;text-align:center;color:var(--color-brand-orange);font-weight:900;}
+  .acervo-pass.small{font-size:.85rem;font-weight:700;line-height:1.4;}
 
   .panel-note{
     background:var(--color-dark-deep);border-radius:.75rem;padding:1rem;border:1px solid var(--color-dark-border);
@@ -84,6 +96,109 @@
   .panel-note h3{color:#fff;font-weight:700;font-size:.875rem;margin:0 0 .25rem;text-transform:uppercase;letter-spacing:.03em;}
   .panel-note p{color:var(--color-text-secondary);font-size:.75rem;margin:.25rem 0;}
   .panel-note p.faint{color:rgba(161,161,170,.7);font-size:.6875rem;}
+
+  /* ---- Tutorial de início ---- */
+  .tutorial-title{
+    display:flex;align-items:center;gap:.6rem;justify-content:center;
+    font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.15rem;text-transform:uppercase;
+    color:#fff;letter-spacing:.02em;margin:0 0 .6rem;
+  }
+  .tutorial-lead{
+    text-align:center;font-size:.85rem;line-height:1.6;color:var(--color-text-secondary);
+    max-width:34rem;margin:0 auto 1.4rem;
+  }
+  .tutorial-lead strong{color:#fff;font-weight:700;}
+  @media(min-width:768px){.tutorial-title{font-size:1.5rem;}}
+  .tutorial-title span{font-size:1.35rem;line-height:1;}
+  .video-frame{
+    max-width:48rem;margin:0 auto;background:#000;border-radius:1.25rem;overflow:hidden;
+    border:1px solid var(--color-dark-border);box-shadow:0 20px 45px rgba(0,0,0,.45);
+  }
+  .video-ratio{position:relative;width:100%;padding-top:56.25%;background:#000;}
+  .video-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+  .video-facade{
+    position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000;
+    cursor:pointer;display:block;font-family:inherit;
+  }
+  .video-facade img{width:100%;height:100%;object-fit:cover;display:block;opacity:.85;transition:opacity .2s;}
+  .video-facade:hover img{opacity:1;}
+  .video-play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:4.25rem;height:3rem;display:block;pointer-events:none;
+  }
+  .video-play svg{width:100%;height:100%;display:block;}
+  .video-play .yt-bg{fill:#212121;fill-opacity:.85;transition:fill .2s,fill-opacity .2s;}
+  .video-facade:hover .video-play .yt-bg{fill:#f00;fill-opacity:1;}
+  .video-yt-link{
+    position:absolute;right:1rem;bottom:.9rem;z-index:2;
+    font-size:.8rem;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8);
+  }
+  .video-yt-link:hover{color:var(--color-brand-orange);}
+  .fluxo-conector{display:flex;justify-content:center;}
+  .fluxo-linha{
+    display:block;width:2px;height:2.5rem;border-radius:2px;
+    background:linear-gradient(to bottom,rgba(255,107,0,0),var(--color-brand-orange));
+  }
+
+  /* ---- Popup "recado pra você" ---- */
+  .recado-overlay{
+    position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.72);
+    display:flex;align-items:center;justify-content:center;padding:1.25rem;
+    opacity:0;visibility:hidden;transition:opacity .25s ease;
+  }
+  .recado-overlay.open{opacity:1;visibility:visible;}
+  .recado-card{
+    position:relative;width:100%;max-width:22rem;max-height:90vh;overflow-y:auto;
+    background:#fff;color:#18181b;border-radius:1.1rem;padding:1.4rem 1.25rem 1.5rem;
+    box-shadow:0 30px 70px rgba(0,0,0,.55);
+    font-size:.9rem;line-height:1.5;
+    transform:translateY(14px) scale(.97);transition:transform .25s ease;
+  }
+  .recado-overlay.open .recado-card{transform:translateY(0) scale(1);}
+  .recado-close{
+    position:absolute;top:.7rem;right:.8rem;background:none;border:none;cursor:pointer;
+    font-size:1.4rem;line-height:1;color:#a1a1aa;padding:.15rem .3rem;font-family:inherit;
+  }
+  .recado-close:hover{color:#3f3f46;}
+  .recado-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-right:1.5rem;}
+  .recado-avatar{width:3rem;height:3rem;border-radius:50%;object-fit:cover;flex-shrink:0;}
+  .recado-nome{font-weight:800;font-size:1.05rem;color:#18181b;}
+  .recado-sub{font-size:.78rem;color:#a1a1aa;}
+  .recado-msg{
+    background:rgba(255,107,0,.09);border:1px solid rgba(255,107,0,.22);
+    border-radius:.75rem;padding:.9rem 1rem;margin-bottom:1.25rem;color:#3f3f46;
+  }
+  .recado-msg p{margin:0 0 .7rem;}
+  .recado-msg p:last-child{margin-bottom:0;}
+  .recado-msg strong{color:#18181b;font-weight:700;}
+  .recado-cta{text-align:center;font-weight:800;color:#18181b;margin:0 0 .7rem;font-size:.95rem;}
+  .recado-cta .arrow{color:var(--color-brand-orange);}
+  .recado-chave{
+    background:rgba(255,107,0,.07);border:2px dashed rgba(255,107,0,.45);border-radius:.75rem;
+    padding:1rem .75rem;text-align:center;margin-bottom:1rem;
+  }
+  .recado-chave-valor{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.5rem;color:#18181b;letter-spacing:.01em;}
+  .recado-chave-titular{font-size:.7rem;color:#71717a;margin-top:.35rem;}
+  .recado-btn{
+    width:100%;background:var(--color-brand-orange);color:#1c1917;font-weight:800;
+    border:none;border-radius:.65rem;padding:.9rem;font-size:.95rem;cursor:pointer;
+    font-family:inherit;transition:background .15s;
+  }
+  .recado-btn:hover{background:var(--color-brand-orange-hover);}
+  .recado-btn.copied{background:#16a34a;color:#fff;}
+  .recado-btn-confirm{
+    margin-top:.6rem;background:#fff;color:#18181b;border:2px solid var(--color-brand-orange);
+  }
+  .recado-btn-confirm:hover{background:rgba(255,107,0,.08);}
+  .recado-btn-confirm.sent{background:#16a34a;color:#fff;border-color:#16a34a;cursor:default;}
+  .recado-btn-confirm[disabled]{cursor:default;opacity:.85;}
+  .recado-passos{list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem;}
+  .recado-passos li{display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem;color:#3f3f46;line-height:1.45;}
+  .recado-passos .num{
+    flex-shrink:0;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--color-brand-orange);
+    color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;
+  }
+  .recado-passos strong{color:#18181b;font-weight:700;}
 
   footer{background:var(--color-dark-deep);padding:2rem 0;color:var(--color-text-secondary);border-top:1px solid var(--color-dark-border);margin-top:auto;}
   .footer-inner{max-width:64rem;margin:0 auto;padding:0 1rem;}
@@ -106,31 +221,42 @@
 
 <main>
   <section class="panel">
-    <div class="panel-head">
-      <p class="panel-eyebrow">Acesso oficial aos acervos</p>
-      <h2 class="panel-title">Acesse seus materiais com segurança</h2>
-      <p class="panel-sub">Use somente os botões oficiais abaixo para abrir os acervos. Salve esta página e desconfie de links enviados por terceiros.</p>
+    <h2 class="tutorial-title"><span>🎬</span> Tutorial de início</h2>
+    <p class="tutorial-lead">Comece por aqui: em poucos minutos você aprende a <strong>baixar os arquivos e mandar imprimir</strong>. Terminou o vídeo, é só abrir o acervo abaixo e escolher a primeira peça pra vender.</p>
+    <div class="video-frame">
+      <div class="video-ratio" id="videoRatio" data-video="XBZKNKsJqKE">
+        <button class="video-facade" id="videoFacade" type="button" aria-label="Reproduzir o tutorial de início">
+          <img src="https://i.ytimg.com/vi/XBZKNKsJqKE/maxresdefault.jpg" alt="Tutorial de início — Oficina 3D" loading="lazy">
+          <span class="video-play" aria-hidden="true">
+            <svg viewBox="0 0 68 48"><path class="yt-bg" d="M66.52 7.74a8 8 0 0 0-5.63-5.66C56.1.81 34 .81 34 .81s-22.1 0-26.89 1.27a8 8 0 0 0-5.63 5.66A83.7 83.7 0 0 0 .5 24a83.7 83.7 0 0 0 .98 16.26 8 8 0 0 0 5.63 5.66C11.9 47.19 34 47.19 34 47.19s22.1 0 26.89-1.27a8 8 0 0 0 5.63-5.66A83.7 83.7 0 0 0 67.5 24a83.7 83.7 0 0 0-.98-16.26z"/><path d="M27.2 34.4 45.6 24 27.2 13.6z" fill="#fff"/></svg>
+          </span>
+        </button>
+        <a class="video-yt-link" href="https://www.youtube.com/watch?v=XBZKNKsJqKE" target="_blank" rel="noopener noreferrer">Assista no YouTube</a>
+      </div>
+    </div>
+    <div class="fluxo-conector" aria-hidden="true">
+      <span class="fluxo-linha"></span>
     </div>
 
     <div class="card">
-      <div class="card-head">
-        <h2>Acesse Seus Acervos</h2>
-        <p>O conteúdo foi dividido em quatro acessos para facilitar a navegação e o carregamento.</p>
-      </div>
-
       <div class="acervos-grid">
-        <div class="acervo-item">
-          <a class="acervo-btn" href="https://mestre3d.vercel.app/membros" target="_blank" rel="noopener noreferrer">
+        <div class="acervo-item destaque">
+          <span class="comece-aqui" aria-hidden="true">
+            <span class="comece-txt">Assistiu? Comece por aqui</span>
+            <svg class="comece-seta" viewBox="0 0 28 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v27"></path><path d="M5 23l9 10 9-10"></path></svg>
+          </span>
+          <a class="acervo-btn" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 1
           </a>
         </div>
 
         <div class="acervo-item">
-          <a class="acervo-btn" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
+          <a class="acervo-btn" href="https://central-3d-lucrativa-715659861474.us-west2.run.app/members" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 2
           </a>
+          <span class="acervo-pass small">Email e nome de usuário de sua preferência</span>
         </div>
 
         <div class="acervo-item">
@@ -141,11 +267,11 @@
         </div>
 
         <div class="acervo-item">
-          <a class="acervo-btn" href="https://central-3d-lucrativa-715659861474.us-west2.run.app/members" target="_blank" rel="noopener noreferrer">
+          <a class="acervo-btn" href="https://mestre3d.vercel.app/membros" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 3
           </a>
-          <span class="acervo-pass">Senha: mestre3d</span>
+          <span class="acervo-pass">Sua senha é: mestre3d</span>
         </div>
       </div>
 
@@ -156,6 +282,7 @@
       </div>
     </div>
   </section>
+
 </main>
 
 <footer>
@@ -173,6 +300,199 @@
     </div>
   </div>
 </footer>
+
+<div class="recado-overlay" id="recadoOverlay" role="dialog" aria-modal="true" aria-labelledby="recadoNome">
+  <div class="recado-card">
+    <button class="recado-close" id="recadoFechar" type="button" aria-label="Fechar">&times;</button>
+
+    <div class="recado-head">
+      <img class="recado-avatar" src="./assets/vicente-lima.png" alt="Vicente Lima">
+      <div>
+        <div class="recado-nome" id="recadoNome">Vicente Lima</div>
+        <div class="recado-sub">recado pra você</div>
+      </div>
+    </div>
+
+    <div class="recado-msg">
+      <p>Oi! Aqui é o Vicente.</p>
+      <p>Liberei o material pra você <strong>antes</strong> de pagar porque confiei.</p>
+      <p>Se ainda não fez o Pix, faz agora. Conto com você.</p>
+    </div>
+
+    <p class="recado-cta">Faz o Pix nesta chave <span class="arrow">&darr;</span></p>
+
+    <div class="recado-chave">
+      <div class="recado-chave-valor" id="recadoPixKey">11 95150-1850</div>
+      <div class="recado-chave-titular">telefone &middot; V L Vidal Lima</div>
+    </div>
+
+    <button class="recado-btn" id="recadoCopiar" type="button">Copiar chave Pix</button>
+    <button class="recado-btn-confirm" id="recadoConfirmarPix" type="button">✅ Já fiz o Pix</button>
+
+    <ol class="recado-passos">
+      <li><span class="num">1</span><span>Toca no botão acima e a chave é copiada</span></li>
+      <li><span class="num">2</span><span>Abre o app do seu banco e escolhe <strong>Pix</strong></span></li>
+      <li><span class="num">3</span><span>Cola a chave e confere se aparece o nome <strong>V L Vidal Lima</strong></span></li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  // Identificação do lead: lê "?lead=" da URL, guarda pra durar a sessão inteira
+  // e repassa pros links internos do site (acervo-4.html, calculadora.html etc).
+  var OFICINA3D_LEAD_ID = (function(){
+    var STORAGE_KEY = 'oficina3d_lead_id';
+    var id = null;
+    try{
+      id = new URLSearchParams(location.search).get('lead');
+      if(id){ sessionStorage.setItem(STORAGE_KEY, id); }
+      else{ id = sessionStorage.getItem(STORAGE_KEY); }
+    }catch(e){}
+
+    if(id){
+      document.querySelectorAll('a[href]').forEach(function(a){
+        var href = a.getAttribute('href');
+        if(!href || href.charAt(0) === '#' || /^https?:\/\//i.test(href)) return;
+        var sep = href.indexOf('?') === -1 ? '?' : '&';
+        a.setAttribute('href', href + sep + 'lead=' + encodeURIComponent(id));
+      });
+    }
+    return id;
+  })();
+
+  // Vídeo: só carrega o player do YouTube quando a pessoa clica (página mais leve).
+  (function(){
+    var facade = document.getElementById('videoFacade');
+    var holder = document.getElementById('videoRatio');
+    if(!facade || !holder) return;
+
+    facade.addEventListener('click', function(){
+      var id = holder.getAttribute('data-video');
+
+      // Aberta como arquivo local (file://) o YouTube recusa o player (erro 153).
+      // Nesse caso abre direto no YouTube em vez de mostrar o erro.
+      if(location.protocol === 'file:'){
+        window.open('https://www.youtube.com/watch?v=' + id, '_blank', 'noopener');
+        return;
+      }
+
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      iframe.title = 'Tutorial de início — Oficina 3D';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      facade.replaceWith(iframe);
+    });
+  })();
+
+  (function(){
+    var DELAY_MS = 100000;          // 100 segundos na página
+    var STORAGE_KEY = 'recadoVicenteVisto';
+
+    var overlay = document.getElementById('recadoOverlay');
+    var btnFechar = document.getElementById('recadoFechar');
+    var btnCopiar = document.getElementById('recadoCopiar');
+    var btnConfirmar = document.getElementById('recadoConfirmarPix');
+    var keyEl = document.getElementById('recadoPixKey');
+    if(!overlay) return;
+
+    // TODO: cole aqui a URL real do seu webhook.
+    var WEBHOOK_URL = 'COLE_AQUI_A_URL_DO_WEBHOOK';
+
+    if(btnConfirmar){
+      btnConfirmar.addEventListener('click', function(){
+        if(btnConfirmar.disabled) return;
+        btnConfirmar.disabled = true;
+        btnConfirmar.textContent = 'Enviando...';
+
+        var payload = {
+          lead_id: OFICINA3D_LEAD_ID,
+          action: 'pix_confirmado',
+          page: location.pathname,
+          timestamp: new Date().toISOString()
+        };
+
+        function marcarEnviado(){
+          btnConfirmar.textContent = '✅ Recebemos! Já estamos verificando';
+          btnConfirmar.classList.add('sent');
+        }
+
+        if(WEBHOOK_URL.indexOf('COLE_AQUI') === 0){
+          // Webhook ainda não configurado — evita erro de rede no console.
+          marcarEnviado();
+          return;
+        }
+
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        }).then(marcarEnviado).catch(marcarEnviado);
+      });
+    }
+
+    function jaViu(){
+      try{ return sessionStorage.getItem(STORAGE_KEY) === '1'; }catch(e){ return false; }
+    }
+    function marcarVisto(){
+      try{ sessionStorage.setItem(STORAGE_KEY, '1'); }catch(e){}
+    }
+
+    function abrir(){
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      marcarVisto();
+    }
+    function fechar(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    btnFechar.addEventListener('click', fechar);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) fechar();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && overlay.classList.contains('open')) fechar();
+    });
+
+    btnCopiar.addEventListener('click', function(){
+      var text = keyEl.textContent.trim();
+      function ok(){
+        btnCopiar.textContent = 'Copiado!';
+        btnCopiar.classList.add('copied');
+        setTimeout(function(){
+          btnCopiar.textContent = 'Copiar chave Pix';
+          btnCopiar.classList.remove('copied');
+        }, 2000);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(ok).catch(function(){ fallbackCopy(text); ok(); });
+      } else {
+        fallbackCopy(text); ok();
+      }
+    });
+
+    function fallbackCopy(text){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+    }
+
+    // Atalho pra testar: abre na hora se a URL terminar em #recado
+    if(location.hash === '#recado'){
+      abrir();
+    } else if(!jaViu()){
+      setTimeout(abrir, DELAY_MS);
+    }
+  })();
+</script>
 
 </body>
 </html>
