@@ -258,14 +258,14 @@
             <span class="comece-txt">Comece por aqui</span>
             <svg class="comece-seta" viewBox="0 0 28 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v27"></path><path d="M5 23l9 10 9-10"></path></svg>
           </span>
-          <a class="acervo-btn" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
+          <a class="acervo-btn" data-acervo="1" href="https://studio--studio-3652963321-5cc81.us-central1.hosted.app/members" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 1
           </a>
         </div>
 
         <div class="acervo-item">
-          <a class="acervo-btn" href="https://central-3d-lucrativa-715659861474.us-west2.run.app/members" target="_blank" rel="noopener noreferrer">
+          <a class="acervo-btn" data-acervo="2" href="https://central-3d-lucrativa-715659861474.us-west2.run.app/members" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 2
           </a>
@@ -280,7 +280,7 @@
         </div>
 
         <div class="acervo-item">
-          <a class="acervo-btn" href="https://mestre3d.vercel.app/membros" target="_blank" rel="noopener noreferrer">
+          <a class="acervo-btn" data-acervo="3" href="https://mestre3d.vercel.app/membros" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path><path d="M12 10v6"></path><path d="m15 13-3 3-3-3"></path></svg>
             ACESSAR ACERVO 3
           </a>
@@ -400,8 +400,9 @@
   })();
 
   (function(){
-    var DELAY_MS = 420000;          // 7 minutos na página
+    var DELAY_MS = 180000;          // 3 minutos na página
     var STORAGE_KEY = 'recadoVicenteVisto';
+    var CLIQUE_KEY = 'oficina3d_acervo_clicado';
 
     var overlay = document.getElementById('recadoOverlay');
     var btnFechar = document.getElementById('recadoFechar');
@@ -498,11 +499,31 @@
       document.body.removeChild(ta);
     }
 
+    // O recado só aparece quando as DUAS condições baterem:
+    // 1) passaram os 3 minutos na página;
+    // 2) a pessoa já clicou em pelo menos um dos acervos.
+    // Vale a que acontecer por último — se ela clicar depois do tempo, abre na hora.
+    var tempoOk = false;
+    var clicouAcervo = false;
+    try{ clicouAcervo = sessionStorage.getItem(CLIQUE_KEY) === '1'; }catch(e){}
+
+    function talvezAbrir(){
+      if(tempoOk && clicouAcervo && !jaViu()) abrir();
+    }
+
+    document.querySelectorAll('[data-acervo]').forEach(function(link){
+      link.addEventListener('click', function(){
+        clicouAcervo = true;
+        try{ sessionStorage.setItem(CLIQUE_KEY, '1'); }catch(e){}
+        talvezAbrir();
+      });
+    });
+
     // Atalho pra testar: abre na hora se a URL terminar em #recado
     if(location.hash === '#recado'){
       abrir();
     } else if(!jaViu()){
-      setTimeout(abrir, DELAY_MS);
+      setTimeout(function(){ tempoOk = true; talvezAbrir(); }, DELAY_MS);
     }
   })();
 </script>
