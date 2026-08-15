@@ -216,8 +216,11 @@ function processCategory(name, driveId, slug) {
 // manualmente quem ja terminou, o proprio arquivo publicado e a fonte da verdade.
 try { execFileSync('git', ['pull', '--rebase', 'origin', 'master'], { cwd: ROOT }); } catch (e) {}
 const htmlAtual = fs.readFileSync(CATEGORIA_HTML, 'utf8');
-const pendentes = CATEGORIES.filter(([name]) => !jaMigrada(name, htmlAtual));
-log(`${pendentes.length} de ${CATEGORIES.length} categorias ainda pendentes no total.`);
+// Categorias que outro processo ja esta processando (ainda nao publicadas,
+// mas nao devem ser pegas de novo aqui) -- passadas por MIGRATE_EXCLUDE.
+const excluidas = new Set((process.env.MIGRATE_EXCLUDE || '').split('|').map(s => s.trim()).filter(Boolean));
+const pendentes = CATEGORIES.filter(([name]) => !jaMigrada(name, htmlAtual) && !excluidas.has(name));
+log(`${pendentes.length} de ${CATEGORIES.length} categorias ainda pendentes (${excluidas.size} excluidas por ja estarem em andamento em outro processo).`);
 
 // Distribui as pendentes entre os N shards por rodizio (indice % total),
 // pra misturar categorias grandes e pequenas entre os processos.
