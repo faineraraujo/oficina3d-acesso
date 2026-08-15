@@ -194,12 +194,38 @@
   }
   .recado-btn:hover{background:var(--color-brand-orange-hover);}
   .recado-btn.copied{background:#16a34a;color:#fff;}
-  .recado-btn-confirm{
-    margin-top:.6rem;background:#fff;color:#18181b;border:2px solid var(--color-brand-orange);
+  .recado-titulo{
+    font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.35rem;color:#18181b;
+    text-align:center;margin:0 0 .9rem;
   }
-  .recado-btn-confirm:hover{background:rgba(255,107,0,.08);}
-  .recado-btn-confirm.sent{background:#16a34a;color:#fff;border-color:#16a34a;cursor:default;}
-  .recado-btn-confirm[disabled]{cursor:default;opacity:.85;}
+  .recado-escolha{display:flex;gap:.6rem;}
+  .recado-escolha .recado-btn{flex:1;padding:.85rem .5rem;font-size:.85rem;}
+  .recado-btn-nao{
+    background:#fff;color:#18181b;border:2px solid #d4d4d8;
+  }
+  .recado-btn-nao:hover{background:#f4f4f5;border-color:var(--color-brand-orange);}
+  .recado-escolha[hidden],.recado-envio[hidden],#recadoPixArea[hidden]{display:none;}
+  .recado-envio{
+    display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem 0 .5rem;
+  }
+  .recado-spinner{
+    width:2.2rem;height:2.2rem;border-radius:50%;
+    border:3px solid rgba(255,107,0,.2);border-top-color:var(--color-brand-orange);
+    animation:recadoGira .8s linear infinite;
+  }
+  @keyframes recadoGira{to{transform:rotate(360deg);}}
+  .recado-check{
+    width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;
+    font-size:2rem;line-height:1;
+    animation:recadoSobe .7s ease-out;
+  }
+  @keyframes recadoSobe{
+    from{opacity:0;transform:translateY(16px) scale(.6);}
+    60%{opacity:1;transform:translateY(-3px) scale(1.08);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+  .recado-envio-txt{margin:0;font-size:.9rem;font-weight:600;color:#3f3f46;text-align:center;}
+  .recado-envio.done .recado-envio-txt{color:#16a34a;font-weight:800;font-size:1rem;}
   .recado-passos{list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem;}
   .recado-passos li{display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem;color:#3f3f46;line-height:1.45;}
   .recado-passos .num{
@@ -326,27 +352,38 @@
       </div>
     </div>
 
+    <p class="recado-titulo">Já fez a sua parte?</p>
+
     <div class="recado-msg">
-      <p>Oi! Aqui é o Vicente.</p>
-      <p>Liberei o material pra você <strong>antes</strong> de pagar porque confiei.</p>
-      <p>Se ainda não fez o Pix, faz agora. Conto com você.</p>
+      <p>Oi! Aqui é o Vicente. Liberei o material pra você <strong>antes</strong> de pagar porque confiei. Confirma abaixo:</p>
     </div>
 
-    <p class="recado-cta">Faz o Pix nesta chave <span class="arrow">&darr;</span></p>
-
-    <div class="recado-chave">
-      <div class="recado-chave-valor" id="recadoPixKey">11 95150-1850</div>
-      <div class="recado-chave-titular">telefone &middot; V L Vidal Lima</div>
+    <div class="recado-escolha" id="recadoEscolha">
+      <button class="recado-btn recado-btn-sim" id="recadoBtnSim" type="button">✅ Sim, já paguei</button>
+      <button class="recado-btn recado-btn-nao" id="recadoBtnNao" type="button">❌ Ainda não paguei</button>
     </div>
 
-    <button class="recado-btn" id="recadoCopiar" type="button">Copiar chave Pix</button>
-    <button class="recado-btn-confirm" id="recadoConfirmarPix" type="button">✅ Já fiz o Pix</button>
+    <div class="recado-envio" id="recadoEnvio" hidden>
+      <span class="recado-spinner" id="recadoSpinner" aria-hidden="true"></span>
+      <p class="recado-envio-txt" id="recadoEnvioTxt">Enviando sua confirmação pro sistema...</p>
+    </div>
 
-    <ol class="recado-passos">
-      <li><span class="num">1</span><span>Toca no botão acima e a chave é copiada</span></li>
-      <li><span class="num">2</span><span>Abre o app do seu banco e escolhe <strong>Pix</strong></span></li>
-      <li><span class="num">3</span><span>Cola a chave e confere se aparece o nome <strong>V L Vidal Lima</strong></span></li>
-    </ol>
+    <div id="recadoPixArea" hidden>
+      <p class="recado-cta">Estamos contando com você, faça sua parte 🙏</p>
+
+      <div class="recado-chave">
+        <div class="recado-chave-valor" id="recadoPixKey">11 95150-1850</div>
+        <div class="recado-chave-titular">telefone &middot; V L Vidal Lima</div>
+      </div>
+
+      <button class="recado-btn" id="recadoCopiar" type="button">Copiar chave Pix</button>
+
+      <ol class="recado-passos">
+        <li><span class="num">1</span><span>Toca no botão acima e a chave é copiada</span></li>
+        <li><span class="num">2</span><span>Abre o app do seu banco e escolhe <strong>Pix</strong></span></li>
+        <li><span class="num">3</span><span>Cola a chave e confere se aparece o nome <strong>V L Vidal Lima</strong></span></li>
+      </ol>
+    </div>
   </div>
 </div>
 
@@ -408,42 +445,57 @@
     var overlay = document.getElementById('recadoOverlay');
     var btnFechar = document.getElementById('recadoFechar');
     var btnCopiar = document.getElementById('recadoCopiar');
-    var btnConfirmar = document.getElementById('recadoConfirmarPix');
+    var btnSim = document.getElementById('recadoBtnSim');
+    var btnNao = document.getElementById('recadoBtnNao');
+    var escolhaEl = document.getElementById('recadoEscolha');
+    var envioEl = document.getElementById('recadoEnvio');
+    var envioTxt = document.getElementById('recadoEnvioTxt');
+    var pixArea = document.getElementById('recadoPixArea');
     var keyEl = document.getElementById('recadoPixKey');
     if(!overlay) return;
 
-    var WEBHOOK_URL = 'https://app.nicochat.com/api/iwh/7a5e340d8a9d03411b10a6f6346ff190';
-    var WEBHOOK_ENABLED = true;
+    var WEBHOOK_PAGO = 'https://app.nicochat.com/api/iwh/7a5e340d8a9d03411b10a6f6346ff190';
+    var WEBHOOK_NAO_PAGO = 'https://app.nicochat.com/api/iwh/fe08a477726dc8fad343207980534f90';
 
-    if(btnConfirmar){
-      btnConfirmar.addEventListener('click', function(){
-        if(btnConfirmar.disabled) return;
-        btnConfirmar.disabled = true;
-        btnConfirmar.textContent = 'Enviando...';
+    function dispararWebhook(url, action){
+      var payload = {
+        lead_id: OFICINA3D_LEAD_ID,
+        action: action,
+        page: location.pathname,
+        timestamp: new Date().toISOString()
+      };
+      fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      }).catch(function(){});
+    }
 
-        var payload = {
-          lead_id: OFICINA3D_LEAD_ID,
-          action: 'pix_confirmado',
-          page: location.pathname,
-          timestamp: new Date().toISOString()
-        };
+    if(btnSim){
+      btnSim.addEventListener('click', function(){
+        dispararWebhook(WEBHOOK_PAGO, 'pix_confirmado');
+        escolhaEl.hidden = true;
+        envioEl.hidden = false;
+        setTimeout(function(){
+          envioEl.classList.add('done');
+          var spinner = document.getElementById('recadoSpinner');
+          if(spinner){
+            var check = document.createElement('span');
+            check.className = 'recado-check';
+            check.textContent = '✅';
+            spinner.replaceWith(check);
+          }
+          envioTxt.textContent = 'Confirmação enviada pro sistema';
+          setTimeout(fechar, 3000);
+        }, 5000);
+      });
+    }
 
-        function marcarEnviado(){
-          btnConfirmar.textContent = '✅ Recebemos! Já estamos verificando';
-          btnConfirmar.classList.add('sent');
-        }
-
-        if(!WEBHOOK_ENABLED){
-          console.log('[TESTE] webhook offline — payload que seria enviado:', payload);
-          marcarEnviado();
-          return;
-        }
-
-        fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
-        }).then(marcarEnviado).catch(marcarEnviado);
+    if(btnNao){
+      btnNao.addEventListener('click', function(){
+        dispararWebhook(WEBHOOK_NAO_PAGO, 'pix_nao_pago');
+        escolhaEl.hidden = true;
+        pixArea.hidden = false;
       });
     }
 
