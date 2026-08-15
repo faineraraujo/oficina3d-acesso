@@ -19,8 +19,12 @@ const B2CLI = process.env.B2CLI || 'b2';
 const GDRIVE_REMOTE = 'gdrive:';
 const B2_REMOTE = 'b2acervo:';
 const PAUSE_BETWEEN_MS = 8000;
-const MODE = process.argv[2] || 'top';
-const PUSH_REF = MODE === 'bottom' ? 'HEAD:master' : 'master';
+// Uso: node migrate-all.js <shardIndex 0-based> <totalShards>
+// Ex: node migrate-all.js 0 4   (primeiro de 4 processos paralelos)
+const SHARD = Number(process.argv[2] || 0);
+const TOTAL_SHARDS = Number(process.argv[3] || 1);
+const MODE = `shard${SHARD}`;
+const PUSH_REF = SHARD === 0 ? 'master' : 'HEAD:master';
 
 const CATEGORIES = [
   ['ANIMAIS', '14AxcgXdrDa8FZFlrE_9Z5m4a2-4nocQR', 'animais'],
@@ -207,17 +211,18 @@ function processCategory(name, driveId, slug) {
   log(`=== Concluido: ${name} ===`);
 }
 
-// Modo "top" (padrao) processa de cima pra baixo; "bottom" processa a
-// metade de baixo, em ordem reversa (pra rodar dois processos ao mesmo
-// tempo, um de cada ponta, sem nenhum pegar a mesma categoria que o outro).
-const meio = Math.ceil(CATEGORIES.length / 2);
-let FILA;
-if (MODE === 'bottom') {
-  FILA = CATEGORIES.slice(meio).reverse();
-} else {
-  FILA = CATEGORIES.slice(0, meio);
-}
-log(`Modo: ${MODE}. Processando ${FILA.length} de ${CATEGORIES.length} categorias.`);
+// Le o HTML atual e pula categorias que ja foram migradas (por qualquer
+// shard, em qualquer execucao anterior) -- assim nao precisa gerenciar
+// manualmente quem ja terminou, o proprio arquivo publicado e a fonte da verdade.
+try { execFileSync('git', ['pull', '--rebase', 'origin', 'master'], { cwd: ROOT }); } catch (e) {}
+const htmlAtual = fs.readFileSync(CATEGORIA_HTML, 'utf8');
+const pendentes = CATEGORIES.filter(([name]) => !jaMigrada(name, htmlAtual));
+log(`${pendentes.length} de ${CATEGORIES.length} categorias ainda pendentes no total.`);
+
+// Distribui as pendentes entre os N shards por rodizio (indice % total),
+// pra misturar categorias grandes e pequenas entre os processos.
+const FILA = pendentes.filter((_, i) => i % TOTAL_SHARDS === SHARD);
+log(`Shard ${SHARD}/${TOTAL_SHARDS}: processando ${FILA.length} categorias.`);
 
 let ok = 0, fail = 0;
 for (const [name, driveId, slug] of FILA) {
