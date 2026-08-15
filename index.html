@@ -357,7 +357,8 @@
     var STORAGE_KEY = 'oficina3d_lead_id';
     var id = null;
     try{
-      id = new URLSearchParams(location.search).get('Usuario');
+      var params = new URLSearchParams(location.search);
+      id = params.get('Usuario') || params.get('usuario');
       if(id){ sessionStorage.setItem(STORAGE_KEY, id); }
       else{ id = sessionStorage.getItem(STORAGE_KEY); }
     }catch(e){}
