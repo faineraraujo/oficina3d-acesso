@@ -24,7 +24,11 @@ const PAUSE_BETWEEN_MS = 8000;
 const SHARD = Number(process.argv[2] || 0);
 const TOTAL_SHARDS = Number(process.argv[3] || 1);
 const MODE = `shard${SHARD}`;
-const PUSH_REF = SHARD === 0 ? 'master' : 'HEAD:master';
+// 'master' se estiver rodando no worktree principal (branch master de verdade);
+// 'HEAD:master' se estiver num worktree separado (branch soltinha, precisa
+// mandar o HEAD pra master no remoto). Controlado explicitamente por env var
+// pra nao depender do numero do shard.
+const PUSH_REF = process.env.MIGRATE_PUSH_REF || 'HEAD:master';
 
 const CATEGORIES = [
   ['ANIMAIS', '14AxcgXdrDa8FZFlrE_9Z5m4a2-4nocQR', 'animais'],
