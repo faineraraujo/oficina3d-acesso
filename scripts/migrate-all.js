@@ -177,7 +177,7 @@ function processCategory(name, driveId, slug) {
   fs.writeFileSync(tmpManifest, JSON.stringify(tree, null, 2));
 
   log(`Transferindo arquivos direto Drive -> Backblaze (sem disco local)...`);
-  rclone(['copy', '--drive-root-folder-id', driveId, GDRIVE_REMOTE, `${B2_REMOTE}${BUCKET}/${slug}`, '--transfers', '4']);
+  rclone(['copy', '--drive-root-folder-id', driveId, GDRIVE_REMOTE, `${B2_REMOTE}${BUCKET}/${slug}`, '--transfers', '8', '--checkers', '16', '--fast-list']);
 
   log(`Subindo manifest.json...`);
   execFileSync(B2CLI, ['file', 'upload', '--no-progress', BUCKET, tmpManifest, `${slug}/manifest.json`], { encoding: 'utf8' });
