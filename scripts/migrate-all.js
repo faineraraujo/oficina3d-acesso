@@ -187,7 +187,7 @@ function coletarPaths(node, out) {
   return out;
 }
 
-const CAP_ARQUIVOS = 200;
+const CAP_ARQUIVOS = 100;
 
 function processCategory(name, driveId, slug) {
   log(`=== Iniciando: ${name} (${slug}) ===`);
