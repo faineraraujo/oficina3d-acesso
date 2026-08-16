@@ -163,6 +163,32 @@ function updateCategoriaHtml(name, driveId, manifestUrl) {
   return true;
 }
 
+// Lista plana de arquivos na ordem da arvore (arquivos do no antes das subpastas,
+// entao os arquivos de uma mesma pasta ficam contiguos e o corte separa no maximo
+// uma pasta no meio).
+function coletarArquivos(node, out) {
+  node.files.forEach(f => out.push(f));
+  node.folders.forEach(fd => coletarArquivos(fd, out));
+  return out;
+}
+
+// Remove da arvore os arquivos fora do conjunto incluido e poda pastas vazias.
+function podarArvore(node, incluidos) {
+  node.files = node.files.filter(f => incluidos.has(f.rel));
+  node.folders.forEach(fd => podarArvore(fd, incluidos));
+  node.folders = node.folders.filter(fd => fd.files.length || fd.folders.length);
+}
+
+// Caminhos que o rclone precisa subir: capas + arquivos da arvore (ja podada).
+function coletarPaths(node, out) {
+  if (node.cover) out.push(node.cover);
+  node.files.forEach(f => out.push(f.rel));
+  node.folders.forEach(fd => coletarPaths(fd, out));
+  return out;
+}
+
+const CAP_ARQUIVOS = 200;
+
 function processCategory(name, driveId, slug) {
   log(`=== Iniciando: ${name} (${slug}) ===`);
 
@@ -173,11 +199,39 @@ function processCategory(name, driveId, slug) {
 
   const tree = buildTreeFromListing(items, name);
 
+  // Corte em CAP_ARQUIVOS: sobe so os primeiros N arquivos agora e registra o
+  // restante em scripts/pendentes/<slug>.json pra um segundo lote depois.
+  const todos = coletarArquivos(tree, []);
+  let restantes = [];
+  if (todos.length > CAP_ARQUIVOS) {
+    const incluidos = new Set(todos.slice(0, CAP_ARQUIVOS).map(f => f.rel));
+    restantes = todos.slice(CAP_ARQUIVOS).map(f => f.rel);
+    podarArvore(tree, incluidos);
+    tree.parcial = true;
+    tree.totalArquivosOriginal = todos.length;
+    log(`Categoria grande: ${todos.length} arquivos -> subindo ${CAP_ARQUIVOS} agora, ${restantes.length} registrados como pendentes.`);
+
+    const regDir = path.join(ROOT, 'scripts', 'pendentes');
+    fs.mkdirSync(regDir, { recursive: true });
+    fs.writeFileSync(path.join(regDir, `${slug}.json`), JSON.stringify({
+      categoria: name, slug, driveId,
+      totalArquivos: todos.length, enviados: CAP_ARQUIVOS,
+      restantes
+    }, null, 2));
+  }
+
   const tmpManifest = path.join(os.tmpdir(), `manifest-${slug}.json`);
   fs.writeFileSync(tmpManifest, JSON.stringify(tree, null, 2));
 
   log(`Transferindo arquivos direto Drive -> Backblaze (sem disco local)...`);
-  rclone(['copy', '--drive-root-folder-id', driveId, GDRIVE_REMOTE, `${B2_REMOTE}${BUCKET}/${slug}`, '--transfers', '8', '--checkers', '16', '--fast-list']);
+  if (restantes.length) {
+    const tmpList = path.join(os.tmpdir(), `files-${slug}.txt`);
+    fs.writeFileSync(tmpList, coletarPaths(tree, []).join('\n') + '\n');
+    rclone(['copy', '--drive-root-folder-id', driveId, GDRIVE_REMOTE, `${B2_REMOTE}${BUCKET}/${slug}`, '--files-from', tmpList, '--transfers', '8', '--checkers', '16']);
+    fs.rmSync(tmpList, { force: true });
+  } else {
+    rclone(['copy', '--drive-root-folder-id', driveId, GDRIVE_REMOTE, `${B2_REMOTE}${BUCKET}/${slug}`, '--transfers', '8', '--checkers', '16', '--fast-list']);
+  }
 
   log(`Subindo manifest.json...`);
   execFileSync(B2CLI, ['file', 'upload', '--no-progress', BUCKET, tmpManifest, `${slug}/manifest.json`], { encoding: 'utf8' });
@@ -198,6 +252,7 @@ function processCategory(name, driveId, slug) {
       if (!mudou) { log(`Ja estava publicada (outro processo chegou primeiro)`); publicado = true; break; }
 
       execFileSync('git', ['add', 'categoria-acervo.html'], { cwd: ROOT });
+      try { execFileSync('git', ['add', 'scripts/pendentes'], { cwd: ROOT }); } catch (e) {}
       try {
         execFileSync('git', ['commit', '-m', `Migra categoria ${name} pro Backblaze B2`], { cwd: ROOT });
       } catch (e) {
