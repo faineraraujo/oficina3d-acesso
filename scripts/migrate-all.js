@@ -190,6 +190,13 @@ function coletarPaths(node, out) {
 const CAP_ARQUIVOS = 100;
 
 function processCategory(name, driveId, slug) {
+  // Antes de gastar upload: sincroniza e pula se outro shard ja publicou.
+  try { execFileSync('git', ['pull', '--rebase', 'origin', 'master'], { cwd: ROOT }); } catch (e) {}
+  if (jaMigrada(name, fs.readFileSync(CATEGORIA_HTML, 'utf8'))) {
+    log(`Pulando ${name}: ja publicada por outro processo.`);
+    return;
+  }
+
   log(`=== Iniciando: ${name} (${slug}) ===`);
 
   log(`Listando estrutura no Drive...`);
