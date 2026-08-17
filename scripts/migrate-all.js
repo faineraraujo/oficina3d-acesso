@@ -70,6 +70,7 @@ const CATEGORIES = [
   ['VEÍCULOS', '1KTrGsqUpiDFPYPqVq12C2Qe5j-hZ1Wey', 'veiculos'],
   ['COLEÇÃO DE NATAL', '11eAZdiOIstSa7Te9ubRWBFNb_OaWQc39', 'colecao-de-natal'],
   ['AMIGURUMIS 3D', '1OpFWns94ybJarR51zTrhlkXYbOCR34QG', 'amigurumis-3d'], // reprocessada por ultimo (deu rate-limit no gdown antes)
+  ['MASCOTES ESPORTIVOS', '1iN0arjmQSunUneNDCkHAh3U2vRmzcBOL', 'mascotes-esportivos'], // adicao pos-lote: processa por ultimo
 ];
 
 const LOG_FILE = process.env.MIGRATE_LOG || path.join(ROOT, 'scripts', 'migrate.log');
